@@ -70,28 +70,6 @@
                     <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
                 </li>
             </ul>
-            <!--El atributo sec:authorize=”isAnonymous()”
-            permite validar si el usuario NO ha iniciado sesión.-->
-            <!--similar a th:if, pero para parámetros de Spring Security-->
-            <!--<div sec:authorize="isAnonymous()">
-                <a th:href="@{/login}" class="btn btn-success" type="submit">Iniciar Sesión</a>
-            </div> -->
-            <!--<form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form> -->
-
-            <!--El atributo sec:authorize=”isAuthenticated()”
-           permite validar si el usuario Sí ha iniciado sesión.-->
-            <!--<div sec:authorize="isAuthenticated()"> -->
-            <!-- para insertar el nombre del usuario logueado con sec:authentication="name"-->
-            <!--<span class="nav-link active" aria-current="page">Bienvenido <span sec:authentication="name"></span></span>-->
-            <!--forma2-->
-            <!--En Spring Security, el enlace a la ruta /logout debe ser un formulario.-->
-            <!--<form th:action="@{/logout}" method="post">
-                <span style="color:white;margin-right:10px" th:text="|Bienvenido ${session.usuario.nombre} ${session.usuario.apellido}|"></span>
-                <input class="btn btn-success" type="submit" value="Cerrar Sesión">
-            </form> -->
         </div>
     </div>
     </div>
@@ -161,10 +139,18 @@
             <div class="card">
                 <div th:if="${country==null}" class="card-body">
                 </div>
-                <div th:if="${country!=null}">
+                <!--<div th:if="${country!=null}">
                     <div th:each="language: ${country.languages}">
                         <div th:text="${language.value}" class="card-body" ></div>
                     </div>
+                </div> -->
+                <div class="card-body" th:if="${country!=null}">
+                    <!-- Iteramos sobre los lenguajes , más un elemento "iterStat" para controlar la iteración-->
+                    <span th:each="language, iterStat : ${country.languages}">
+                        <span th:text="${language.value}"></span>
+                        <!-- Si no es el último elemento (lenguaje), se agrega una coma -->
+                        <span th:if="${!iterStat.last}">, </span>
+                    </span>
                 </div>
             </div>
         </div>
@@ -217,59 +203,7 @@
                 </div>
             </div>
         </div>
-        <!--<div class="col-md-4">
-            <label for="inputState" class="form-label">State</label>
-            <select id="inputState" class="form-select">
-                <option selected>Choose...</option>
-                <option>...</option>
-            </select>
-        </div>
-        <div class="col-md-2">
-            <label for="inputZip" class="form-label">Zip</label>
-            <input type="text" class="form-control" id="inputZip">
-        </div>
-        <div class="col-12">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck">
-                <label class="form-check-label" for="gridCheck">
-                    Check me out
-                </label>
-            </div>
-        </div>
-        <div class="col-12">
-            <button type="submit" class="btn btn-primary">Sign in</button>
-        </div> -->
     </form>
-    <!--<table class="table table-striped">
-        <thead>
-        <tr class="table-dark">
-            <th>DNI</th>
-            <th>Nombres</th>
-            <th>Apellido Paterno</th>
-            <th>Apellido Materno</th>
-            <th>Caracter Verificación</th>
-            <th>Caracter Verificación Anterior</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:if="${persona==null}" class="table-light" >
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr th:if="${persona!=null}" class="table-light" >
-            <td th:text="${persona.dni}"></td>
-            <td th:text="${persona.nombres}"></td>
-            <td th:text="${persona.apellido_paterno}"></td>
-            <td th:text="${persona.apellido_materno}"></td>
-            <td th:text="${persona.caracter_verificacion}"></td>
-            <td th:text="${persona.caracter_verificacion_anterior}"></td>
-        </tr>
-        </tbody>
-    </table> -->
 <br />
 </div>
 
